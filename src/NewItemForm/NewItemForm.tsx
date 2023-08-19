@@ -24,7 +24,7 @@ function NewItemForm(props: NewItemFormProps) {
     }
 
     return (
-      <form onSubmit={submit} className="new-item-form">
+      <form onSubmit={submit} className="new-item-form container">
         <div className="row">
             <label>Name: </label><input type="text" value={enteredName} onChange={nameChanged}></input>
         </div>

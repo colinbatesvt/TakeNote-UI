@@ -5,7 +5,7 @@ import GroceryList from './GroceryList/GroceryList';
 function App() {
   return (
     <div className="App">
-      <GroceryList></GroceryList>
+      <GroceryList className="grocery-list"></GroceryList>
     </div>
   );
 }
