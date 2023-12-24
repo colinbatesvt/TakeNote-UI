@@ -1,4 +1,4 @@
-import GroceryItem from "../model/GroceryItem";
+import GroceryItem from "../../model/GroceryListItem";
 import "./GroceryItemDisplay.css"
 
 interface GroceryItemDisplayProps {
@@ -10,11 +10,10 @@ function GroceryItemDisplay(props: GroceryItemDisplayProps) {
 
     const onDeleteClicked = () => {
         props.deleteItem(props.item);
-        return undefined;
     };
     
     return (
-        <div className="container">
+        <div>
             <div>
                 {props.item.name}
                 <button onClick={onDeleteClicked} className="btn btn-primary delete-button">
