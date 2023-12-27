@@ -1,4 +1,3 @@
-import { useState } from "react";
 import NewItemForm from "../NewItemForm/NewItemForm";
 import GroceryItemDisplay from "../GroceryItemDisplay/GroceryItemDisplay";
 import './GroceryListDisplay.css'
@@ -10,12 +9,8 @@ interface GroceryListProps {
 }
 
 function GroceryListComponent(props: GroceryListProps) {
-
-    console.log(props.list);
-
-    const deleteItem: Function = (deleteItem: GroceryListItem) => {
-      
-    }
+    //TODO: implement delete
+    const deleteItem: Function = (deleteItem: GroceryListItem) => {}
 
     return ( 
       <div>

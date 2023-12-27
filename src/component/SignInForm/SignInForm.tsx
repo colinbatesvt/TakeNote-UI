@@ -1,13 +1,22 @@
 import { useState } from "react";
 import './SignInForm.css';
+import { getGroceryLists } from "../../service/GroceryListService";
+import { useDispatch } from "react-redux";
+import { setGroceryLists } from "../../store/state/groceryListSlice";
+import { setToken } from "../../store/state/userSlice";
+import { useCookies } from "react-cookie";
+import { TOKEN_COOKIE } from "../../constants/Cookies";
+import { signIn } from "../../service/UserService";
 
 interface SignInFormProps {
-    setAccessToken: Function;
 }
 
 function SignInForm(props: SignInFormProps) {
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
+    const dispatch = useDispatch();
+
+    const [, setCookie] = useCookies([TOKEN_COOKIE]);
 
     const userNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
         setEnteredUsername(event.currentTarget.value);
@@ -20,24 +29,18 @@ function SignInForm(props: SignInFormProps) {
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        fetch('http://localhost:8080/user/authenticate', {
-            method: 'POST',
-            mode: 'cors',
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: enteredUsername,
-                password: enteredPassword
-            })
-        })
-        .then((response) => {
-            console.log("user authenticated successfully");
-            props.setAccessToken(response.headers.get("Authorization"));
-        })
-        .catch(error => {
-            console.log('error while attempting to authenticate: ', error);
+        signIn(enteredUsername, enteredPassword).then(token => {
+            if(token) {
+                dispatch(setToken(token));
+                getGroceryLists(token).then(lists => {
+                    dispatch(setGroceryLists(lists));
+                });
+                //TODO: figure out http only cookie
+                setCookie(TOKEN_COOKIE, token, {
+                    path: "/",
+                    maxAge: 99999
+                  });
+            }
         });
 
         setEnteredUsername("");
