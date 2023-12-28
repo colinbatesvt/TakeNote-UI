@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setSelectedGroceryList } from "../../store/state/groceryListSlice";
+import { useSelector } from "react-redux";
 import GroceryList from "../../model/GroceryList";
 import { AppState } from "../../model/AppState";
+import { useNavigate } from "react-router-dom";
 
 interface GroceryListProps {
   className?: string;
-  token: string;
 }
 
 function GroceryListPicker(props: GroceryListProps) {
@@ -14,14 +13,14 @@ function GroceryListPicker(props: GroceryListProps) {
       return state.groceryListState.groceryLists
     }
     );
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return ( 
       <div>
         {groceryLists.map((list, index) => {
           return <div key={index}>
             {list.name}
-            <button className="btn btn-primary" onClick={ () => {dispatch(setSelectedGroceryList(list))}}>expand</button>
+            <button className="btn btn-primary" onClick={ () => {navigate("/list/" + list.id)}}>expand</button>
           </div>
         })}
       </div>

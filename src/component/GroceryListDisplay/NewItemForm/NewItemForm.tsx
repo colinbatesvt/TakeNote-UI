@@ -1,10 +1,9 @@
 import { useState } from "react";
-import GroceryItem from "../../model/GroceryListItem";
+import GroceryItem from "../../../model/GroceryListItem";
 import './NewItemForm.css'
 
 
 interface NewItemFormProps {
-    // setGroceryListItems: Function;
 }
 
 function NewItemForm(props: NewItemFormProps) {
@@ -19,9 +18,8 @@ function NewItemForm(props: NewItemFormProps) {
         const newItem: GroceryItem = {
             name: enteredName
         };
-        // props.setGroceryListItems((currentList: GroceryItem[]) => {
-        //     return [...currentList, newItem];
-        // });
+        
+        //todo: send post to add new item
         setEnteredName("");
     }
 

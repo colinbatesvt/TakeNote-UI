@@ -11,16 +11,17 @@ import { setToken, setUser } from './store/state/userSlice';
 import { getUser } from './service/UserService';
 import { TOKEN_COOKIE } from './constants/Cookies';
 import NavBar from './component/NavBar/NavBar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
   const dispatch = useDispatch();
   const [cookies,, removeCookie] = useCookies([TOKEN_COOKIE]);
 
-  const selectedList = useSelector((state: AppState) => state.groceryListState.selectedGroceryList);
   const user = useSelector((state: AppState) => state.userState.user);
   const token = useSelector((state: AppState) => state.userState.token);
 
+  //check if we have a valid token, if not log out
   if(cookies.token && !token) {
     dispatch(setToken(cookies.token));
     getUser(cookies.token).then(user => {
@@ -41,15 +42,13 @@ function App() {
   return (
     <div className="app">
       <NavBar></NavBar>
-      {
-        !user ?
-        <SignInForm></SignInForm> : <></>
-      }
-      {
-        selectedList ? 
-        <GroceryListComponent list={selectedList}></GroceryListComponent> : 
-        <GroceryListPicker token={token}></GroceryListPicker>
-      }
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signIn" element={<SignInForm/>}/>
+          <Route path="/lists" element={<GroceryListPicker/>}/>
+          <Route path="/list/:listId" element={<GroceryListComponent/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

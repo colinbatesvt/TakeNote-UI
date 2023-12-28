@@ -3,7 +3,7 @@ import { AppState } from "../../model/AppState";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import './navBar.css'
-import { Button, Form, Nav, NavDropdown } from "react-bootstrap";
+import { Button, Nav, NavDropdown } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { TOKEN_COOKIE } from "../../constants/Cookies";
 import { setToken, setUser } from "../../store/state/userSlice";
@@ -12,7 +12,7 @@ function NavBar() {
     
   const user = useSelector((state: AppState) => state.userState.user);
   const dispatch = useDispatch();
-  const [cookies,, removeCookie] = useCookies([TOKEN_COOKIE]);
+  const [,, removeCookie] = useCookies([TOKEN_COOKIE]);
 
   const signOut = () => {
     removeCookie(TOKEN_COOKIE);
@@ -31,11 +31,11 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link href="/lists">Home</Nav.Link>
           </Nav>
           { user ? 
           <NavDropdown title={user.username} className="d-flex space-right" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action4">
+              <NavDropdown.Item href="/account">
                 My Account
               </NavDropdown.Item>
               <NavDropdown.Divider />
@@ -43,7 +43,7 @@ function NavBar() {
                 <Button onClick={signOut}>Sign Out</Button>
               </NavDropdown.Item>
             </NavDropdown>
-        : <Nav.Link className="d-flex space-right" href="#signIn">Sign In</Nav.Link>
+        : <Nav.Link className="d-flex space-right" href="/signIn">Sign In</Nav.Link>
         }
           
         </Navbar.Collapse>
