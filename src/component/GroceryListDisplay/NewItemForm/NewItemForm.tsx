@@ -1,13 +1,21 @@
 import { useState } from "react";
 import GroceryItem from "../../../model/GroceryListItem";
 import './NewItemForm.css'
+import { addGroceryListItem } from "../../../service/GroceryListService";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../../../model/AppState";
+import GroceryList from "../../../model/GroceryList";
+import { updateGroceryList } from "../../../store/state/groceryListSlice";
 
 
 interface NewItemFormProps {
+  listId: number;
 }
 
 function NewItemForm(props: NewItemFormProps) {
     const [enteredName, setEnteredName] = useState('');
+    const token = useSelector((state: AppState) => state.userState.token);
+    const dispatch = useDispatch();
 
     const nameChanged = (event: React.FormEvent<HTMLInputElement>) => {
         setEnteredName(event.currentTarget.value);
@@ -19,7 +27,12 @@ function NewItemForm(props: NewItemFormProps) {
             name: enteredName
         };
         
-        //todo: send post to add new item
+        addGroceryListItem(token, props.listId, newItem).then(updatedList => {
+          if(updatedList) {
+            dispatch(updateGroceryList(updatedList));
+          }
+        });
+
         setEnteredName("");
     }
 
@@ -35,3 +48,4 @@ function NewItemForm(props: NewItemFormProps) {
   }
   
   export default NewItemForm;
+

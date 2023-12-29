@@ -1,31 +1,43 @@
 import NewItemForm from "./NewItemForm/NewItemForm";
-import GroceryItemDisplay from "../GroceryItemDisplay/GroceryItemDisplay";
+import GroceryItemDisplay from "./GroceryItemDisplay/GroceryItemDisplay";
 import './GroceryListDisplay.css'
 import GroceryList from "../../model/GroceryList";
-import GroceryListItem from "../../model/GroceryListItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../model/AppState";
 import { useParams } from "react-router-dom";
+import { removeGroceryListItem } from "../../service/GroceryListService";
+import { updateGroceryList } from "../../store/state/groceryListSlice";
 
 interface GroceryListProps {
 }
 
 function GroceryListComponent(props: GroceryListProps) {
-    //TODO: implement delete
-    const deleteItem: Function = (deleteItem: GroceryListItem) => {}
-
+  
     const {listId} = useParams();
     const listIdNum = Number.parseInt(listId ?? '');
     const list: GroceryList | undefined = useSelector((state: AppState) => {
       return state.groceryListState.groceryLists.find(list => list.id === listIdNum)
     });
 
+    const dispatch = useDispatch();
+    const token = useSelector((state: AppState) => state.userState.token);
+
+    const deleteItem: Function = (deleteItemIndex: number) => {
+      if(list) {
+        removeGroceryListItem(token, list.id, deleteItemIndex).then(updatedList => {
+          if(updatedList) {
+            dispatch(updateGroceryList(updatedList));
+          }
+        });
+      }
+    };
+
     return ( 
       <div>
         { list ? <div>
-          <NewItemForm></NewItemForm>
+          <NewItemForm listId={list.id}></NewItemForm>
           {list.items.map((item, index) => {
-            return <GroceryItemDisplay item={item} key={index} deleteItem={deleteItem}></GroceryItemDisplay>
+            return <GroceryItemDisplay item={item} key={index} index={index} deleteItem={deleteItem}></GroceryItemDisplay>
           })}
         </div> : <div>No list found</div>}
       </div>

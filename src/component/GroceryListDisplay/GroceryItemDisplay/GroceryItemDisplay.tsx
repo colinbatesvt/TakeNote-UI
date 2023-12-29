@@ -1,15 +1,16 @@
-import GroceryItem from "../../model/GroceryListItem";
+import GroceryItem from "../../../model/GroceryListItem";
 import "./GroceryItemDisplay.css"
 
 interface GroceryItemDisplayProps {
     item: GroceryItem;
+    index: number;
     deleteItem: Function;
 }
 
 function GroceryItemDisplay(props: GroceryItemDisplayProps) {
 
     const onDeleteClicked = () => {
-        props.deleteItem(props.item);
+        props.deleteItem(props.index);
     };
     
     return (
