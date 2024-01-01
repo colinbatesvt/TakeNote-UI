@@ -1,0 +1,32 @@
+.fill-width {
+    width: 100%;
+}
+
+.list-picker {
+    width: 25rem;
+    margin: 1rem;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newListForm {
+    display: flex;
+    justify-content: center;
+}
+
+.list-name-container {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+}
+
+.list-name {
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    max-width: calc(80%);
+}

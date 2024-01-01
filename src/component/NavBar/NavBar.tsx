@@ -31,7 +31,7 @@ function NavBar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="/lists">Home</Nav.Link>
+            <Nav.Link href="/lists">Lists</Nav.Link>
           </Nav>
           { user ? 
           <NavDropdown title={user.username} className="d-flex space-right" id="navbarScrollingDropdown">

@@ -4,7 +4,6 @@ import './NewItemForm.css'
 import { addGroceryListItem } from "../../../service/GroceryListService";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../model/AppState";
-import GroceryList from "../../../model/GroceryList";
 import { updateGroceryList } from "../../../store/state/groceryListSlice";
 
 

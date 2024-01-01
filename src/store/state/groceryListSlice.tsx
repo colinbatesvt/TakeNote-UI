@@ -18,10 +18,16 @@ export const groceryListSlice = createSlice({
         state.groceryLists[listIndex] = action.payload;
       }
     },
+    addGroceryList: (state, action) => {
+      state.groceryLists.push(action.payload);
+    },
+    removeGroceryList: (state, action) => {
+      state.groceryLists = state.groceryLists.filter(list => list.id !== action.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setGroceryLists, updateGroceryList } = groceryListSlice.actions
+export const { setGroceryLists, updateGroceryList, addGroceryList, removeGroceryList } = groceryListSlice.actions
 
 export default groceryListSlice.reducer

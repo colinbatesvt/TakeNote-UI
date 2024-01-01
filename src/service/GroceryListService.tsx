@@ -1,4 +1,5 @@
 import { SERVICE_URL } from "../constants/url";
+import { CreateGroceryListRequest } from "../model/CreateGroceryListRequest";
 import GroceryList from "../model/GroceryList";
 import GroceryListItem from "../model/GroceryListItem";
 
@@ -26,6 +27,43 @@ export const getGroceryLists = (token: string) : Promise<GroceryList[] | null> =
         })
         .catch(error => {
             console.log('error while fetching grocery lists: ', error);
+        });
+}
+
+export const createNewGroceryList = (token: string, request: CreateGroceryListRequest): Promise<GroceryList | null> => {
+    return fetch(SERVICE_URL + '/api/groceryLists/create', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(request)
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log('error while attempting to create grocery list: ', error);
+            return null;
+        });
+}
+
+export const deleteGroceryList = (token: string, listId: number): Promise<GroceryList | null> => {
+    return fetch(SERVICE_URL + '/api/groceryLists/' + listId, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log('error while attempting to delete grocery list: ', error);
+            return null;
         });
 }
 

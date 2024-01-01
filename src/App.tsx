@@ -42,13 +42,15 @@ function App() {
   return (
     <div className="app">
       <NavBar></NavBar>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signIn" element={<SignInForm/>}/>
-          <Route path="/lists" element={<GroceryListPicker/>}/>
-          <Route path="/list/:listId" element={<GroceryListComponent/>}/>
-        </Routes>
-      </BrowserRouter>
+      <div className="margins">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/signIn" element={<SignInForm/>}/>
+            <Route path="/lists" element={<GroceryListPicker/>}/>
+            <Route path="/list/:listId" element={<GroceryListComponent/>}/>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

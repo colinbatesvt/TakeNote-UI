@@ -7,6 +7,7 @@ import { setToken } from "../../store/state/userSlice";
 import { useCookies } from "react-cookie";
 import { TOKEN_COOKIE } from "../../constants/Cookies";
 import { signIn } from "../../service/UserService";
+import { useNavigate } from "react-router-dom";
 
 interface SignInFormProps {
 }
@@ -15,6 +16,7 @@ function SignInForm(props: SignInFormProps) {
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [, setCookie] = useCookies([TOKEN_COOKIE]);
 
@@ -40,6 +42,7 @@ function SignInForm(props: SignInFormProps) {
                     path: "/",
                     maxAge: 99999
                   });
+                navigate('/lists');
             }
         });
 

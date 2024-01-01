@@ -36,9 +36,11 @@ function GroceryListComponent(props: GroceryListProps) {
       <div>
         { list ? <div>
           <NewItemForm listId={list.id}></NewItemForm>
-          {list.items.map((item, index) => {
-            return <GroceryItemDisplay item={item} key={index} index={index} deleteItem={deleteItem}></GroceryItemDisplay>
-          })}
+          <ul className="list-group">
+            {list.items.map((item, index) => {
+              return <GroceryItemDisplay item={item} key={index} index={index} deleteItem={deleteItem}></GroceryItemDisplay>
+            })}
+          </ul>
         </div> : <div>No list found</div>}
       </div>
     );
