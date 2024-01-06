@@ -23,7 +23,8 @@ function NewItemForm(props: NewItemFormProps) {
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const newItem: GroceryItem = {
-            name: enteredName
+            name: enteredName,
+            checked: false
         };
         
         addGroceryListItem(token, props.listId, newItem).then(updatedList => {

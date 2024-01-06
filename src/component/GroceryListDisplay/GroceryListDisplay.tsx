@@ -5,8 +5,10 @@ import GroceryList from "../../model/GroceryList";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../model/AppState";
 import { useParams } from "react-router-dom";
-import { removeGroceryListItem } from "../../service/GroceryListService";
+import { removeGroceryListItem, updateGroceryListItem } from "../../service/GroceryListService";
 import { updateGroceryList } from "../../store/state/groceryListSlice";
+import GroceryListItem from "../../model/GroceryListItem";
+import UpdateGroceryItemRequest from "../../model/UpdateGroceryItemRequest";
 
 interface GroceryListProps {
 }
@@ -32,13 +34,27 @@ function GroceryListComponent(props: GroceryListProps) {
       }
     };
 
+    const updateItem: Function = (index: number, item: GroceryListItem) => {
+      if(list) {
+        const request: UpdateGroceryItemRequest = {
+          index: index,
+          item: item
+        }
+        updateGroceryListItem(token, list.id, request).then(updatedList => {
+          if(updatedList) {
+            dispatch(updateGroceryList(updatedList));
+          }
+        });
+      }
+    }
+
     return ( 
       <div>
         { list ? <div>
           <NewItemForm listId={list.id}></NewItemForm>
           <ul className="list-group">
             {list.items.map((item, index) => {
-              return <GroceryItemDisplay item={item} key={index} index={index} deleteItem={deleteItem}></GroceryItemDisplay>
+              return <GroceryItemDisplay item={item} key={index} index={index} deleteItem={deleteItem} updateItem={updateItem}></GroceryItemDisplay>
             })}
           </ul>
         </div> : <div>No list found</div>}

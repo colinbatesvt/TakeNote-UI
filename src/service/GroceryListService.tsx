@@ -2,6 +2,7 @@ import { SERVICE_URL } from "../constants/url";
 import { CreateGroceryListRequest } from "../model/CreateGroceryListRequest";
 import GroceryList from "../model/GroceryList";
 import GroceryListItem from "../model/GroceryListItem";
+import UpdateGroceryItemRequest from "../model/UpdateGroceryItemRequest";
 
 export const getGroceryLists = (token: string) : Promise<GroceryList[] | null> => {
     return fetch (SERVICE_URL + '/api/groceryLists', 
@@ -101,6 +102,25 @@ export const removeGroceryListItem = (token: string, listId: number, itemIndex: 
         })
         .catch(error => {
             console.log('error while attempting to remove grocery list item: ', error);
+            return null;
+        });
+}
+
+export const updateGroceryListItem = (token: string, listId: number, request: UpdateGroceryItemRequest): Promise<GroceryList | null> => {
+    return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/updateItem", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(request)
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log('error while attempting to update grocery list item: ', error);
             return null;
         });
 }
