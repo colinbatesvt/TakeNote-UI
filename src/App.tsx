@@ -40,14 +40,14 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="app fill-height">
       <NavBar></NavBar>
-      <div className="margins">
+      <div className="margins fill-height">
         <BrowserRouter>
           <Routes>
             <Route path="/signIn" element={<SignInForm/>}/>
             <Route path="/lists" element={<GroceryListPicker/>}/>
-            <Route path="/list/:listId" element={<GroceryListComponent/>}/>
+            <Route path="/list/:listId" element={<GroceryListComponent />}/>
           </Routes>
         </BrowserRouter>
       </div>

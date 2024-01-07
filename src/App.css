@@ -5,3 +5,7 @@ nav {
 .margins {
     margin: 1rem;
 }
+
+.fill-height {
+    height: 100%;
+}

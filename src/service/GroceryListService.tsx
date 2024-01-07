@@ -106,6 +106,42 @@ export const removeGroceryListItem = (token: string, listId: number, itemIndex: 
         });
 }
 
+export const removeCheckedItems = (token: string, listId: number): Promise<GroceryList | null> => {
+    return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/removeCheckedItems", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log('error while attempting to remove all checked items: ', error);
+            return null;
+        });
+}
+
+export const removeAllItems = (token: string, listId: number): Promise<GroceryList | null> => {
+    return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/removeAllItems", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .catch(error => {
+            console.log('error while attempting to remove all items: ', error);
+            return null;
+        });
+}
+
 export const updateGroceryListItem = (token: string, listId: number, request: UpdateGroceryItemRequest): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/updateItem", {
             method: 'POST',

@@ -4,3 +4,15 @@
     flex-direction: column;
     align-items: center;
 }
+
+.item-list {
+    max-height: 70%;
+}
+
+.fill-height {
+    height: 100%;
+}
+
+.list-delete-button {
+    margin: 1rem;
+}
