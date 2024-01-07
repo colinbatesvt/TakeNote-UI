@@ -4,13 +4,11 @@ import GroceryList from "../model/GroceryList";
 import GroceryListItem from "../model/GroceryListItem";
 import UpdateGroceryItemRequest from "../model/UpdateGroceryItemRequest";
 
-export const getGroceryLists = (token: string) : Promise<GroceryList[] | null> => {
+export const getGroceryLists = () : Promise<GroceryList[] | null> => {
     return fetch (SERVICE_URL + '/api/groceryLists', 
         {
             mode: 'cors',
-            headers: {
-            Authorization: token
-            }
+            credentials: 'include'
         })
         .then((response) => {
             if(response) {
@@ -31,12 +29,12 @@ export const getGroceryLists = (token: string) : Promise<GroceryList[] | null> =
         });
 }
 
-export const createNewGroceryList = (token: string, request: CreateGroceryListRequest): Promise<GroceryList | null> => {
+export const createNewGroceryList = (request: CreateGroceryListRequest): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/create', {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(request)
@@ -50,14 +48,14 @@ export const createNewGroceryList = (token: string, request: CreateGroceryListRe
         });
 }
 
-export const deleteGroceryList = (token: string, listId: number): Promise<GroceryList | null> => {
+export const deleteGroceryList = (listId: number): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId, {
             method: 'DELETE',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
-            }
+            },
         })
         .then((response) => {
             return response.json();
@@ -68,12 +66,12 @@ export const deleteGroceryList = (token: string, listId: number): Promise<Grocer
         });
 }
 
-export const addGroceryListItem = (token: string, listId: number, item: GroceryListItem): Promise<GroceryList | null> => {
+export const addGroceryListItem = (listId: number, item: GroceryListItem): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/addItem", {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(item)
@@ -87,12 +85,12 @@ export const addGroceryListItem = (token: string, listId: number, item: GroceryL
         });
 }
 
-export const removeGroceryListItem = (token: string, listId: number, itemIndex: number): Promise<GroceryList | null> => {
+export const removeGroceryListItem = (listId: number, itemIndex: number): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/removeItem", {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(itemIndex)
@@ -106,14 +104,14 @@ export const removeGroceryListItem = (token: string, listId: number, itemIndex: 
         });
 }
 
-export const removeCheckedItems = (token: string, listId: number): Promise<GroceryList | null> => {
+export const removeCheckedItems = (listId: number): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/removeCheckedItems", {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
-            }
+            },
         })
         .then((response) => {
             return response.json();
@@ -124,14 +122,14 @@ export const removeCheckedItems = (token: string, listId: number): Promise<Groce
         });
 }
 
-export const removeAllItems = (token: string, listId: number): Promise<GroceryList | null> => {
+export const removeAllItems = (listId: number): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/removeAllItems", {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
-            }
+            },
         })
         .then((response) => {
             return response.json();
@@ -142,12 +140,12 @@ export const removeAllItems = (token: string, listId: number): Promise<GroceryLi
         });
 }
 
-export const updateGroceryListItem = (token: string, listId: number, request: UpdateGroceryItemRequest): Promise<GroceryList | null> => {
+export const updateGroceryListItem = (listId: number, request: UpdateGroceryItemRequest): Promise<GroceryList | null> => {
     return fetch(SERVICE_URL + '/api/groceryLists/' + listId + "/updateItem", {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             headers: {
-                Authorization: token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(request)

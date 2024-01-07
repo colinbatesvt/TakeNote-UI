@@ -1,23 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "../../model/AppState";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import './navBar.css'
 import { Button, Nav, NavDropdown } from "react-bootstrap";
-import { useCookies } from "react-cookie";
 import { TOKEN_COOKIE } from "../../constants/Cookies";
-import { setToken, setUser } from "../../store/state/userSlice";
+import { useCookies } from "react-cookie";
 
 function NavBar() {
     
   const user = useSelector((state: AppState) => state.userState.user);
-  const dispatch = useDispatch();
   const [,, removeCookie] = useCookies([TOKEN_COOKIE]);
 
   const signOut = () => {
     removeCookie(TOKEN_COOKIE);
-    dispatch(setToken(''));
-    dispatch(setUser(undefined));
   }
 
   return (

@@ -2,8 +2,7 @@ import { useState } from "react";
 import GroceryItem from "../../../model/GroceryListItem";
 import './NewItemForm.css'
 import { addGroceryListItem } from "../../../service/GroceryListService";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../../../model/AppState";
+import { useDispatch } from "react-redux";
 import { updateGroceryList } from "../../../store/state/groceryListSlice";
 
 
@@ -13,7 +12,6 @@ interface NewItemFormProps {
 
 function NewItemForm(props: NewItemFormProps) {
     const [enteredName, setEnteredName] = useState('');
-    const token = useSelector((state: AppState) => state.userState.token);
     const dispatch = useDispatch();
 
     const nameChanged = (event: React.FormEvent<HTMLInputElement>) => {
@@ -27,7 +25,7 @@ function NewItemForm(props: NewItemFormProps) {
             checked: false
         };
         
-        addGroceryListItem(token, props.listId, newItem).then(updatedList => {
+        addGroceryListItem(props.listId, newItem).then(updatedList => {
           if(updatedList) {
             dispatch(updateGroceryList(updatedList));
           }

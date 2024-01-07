@@ -14,7 +14,6 @@ interface GroceryListProps {
 
 function GroceryListPicker(props: GroceryListProps) {
     const [enteredName, setEnteredName] = useState('');
-    const token = useSelector((state: AppState) => state.userState.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ function GroceryListPicker(props: GroceryListProps) {
           listName: enteredName
       };
       
-      createNewGroceryList(token, request).then(newList => {
+      createNewGroceryList(request).then(newList => {
         if(newList) {
           dispatch(addGroceryList(newList));
         }
@@ -43,7 +42,7 @@ function GroceryListPicker(props: GroceryListProps) {
     }
 
     const deleteList = (listId: number) => {
-      deleteGroceryList(token, listId).then(() => {
+      deleteGroceryList(listId).then(() => {
         dispatch(removeGroceryList(listId));
       });
     }

@@ -1,14 +1,12 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { SERVICE_URL } from "../constants/url";
 import { User } from "../model/User"
 
-export const getUser = (token: string) : Promise<User | null> => {
+export const getUser = () : Promise<User | null> => {
     return fetch (SERVICE_URL + '/user', 
         {
             mode: 'cors',
-            headers: {
-                Authorization: token
-            }
+            credentials: 'include'
         })
         .then((response) => {
             if(response) {

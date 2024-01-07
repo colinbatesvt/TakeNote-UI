@@ -22,11 +22,10 @@ function GroceryListComponent(props: GroceryListProps) {
     });
 
     const dispatch = useDispatch();
-    const token = useSelector((state: AppState) => state.userState.token);
 
     const deleteItem: Function = (deleteItemIndex: number) => {
       if(list) {
-        removeGroceryListItem(token, list.id, deleteItemIndex).then(updatedList => {
+        removeGroceryListItem(list.id, deleteItemIndex).then(updatedList => {
           if(updatedList) {
             dispatch(updateGroceryList(updatedList));
           }
@@ -36,7 +35,7 @@ function GroceryListComponent(props: GroceryListProps) {
 
     const removeChecked = () => {
       if(list) {
-        removeCheckedItems(token, list.id).then(updatedList => {
+        removeCheckedItems(list.id).then(updatedList => {
           if(updatedList) {
             dispatch(updateGroceryList(updatedList));
           }
@@ -46,7 +45,7 @@ function GroceryListComponent(props: GroceryListProps) {
 
     const clearList = () => {
       if(list) {
-        removeAllItems(token, list.id).then(updatedList => {
+        removeAllItems(list.id).then(updatedList => {
           if(updatedList) {
             dispatch(updateGroceryList(updatedList));
           }
@@ -60,7 +59,7 @@ function GroceryListComponent(props: GroceryListProps) {
           index: index,
           item: item
         }
-        updateGroceryListItem(token, list.id, request).then(updatedList => {
+        updateGroceryListItem(list.id, request).then(updatedList => {
           if(updatedList) {
             dispatch(updateGroceryList(updatedList));
           }

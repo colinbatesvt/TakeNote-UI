@@ -3,9 +3,9 @@ import './SignInForm.css';
 import { getGroceryLists } from "../../service/GroceryListService";
 import { useDispatch } from "react-redux";
 import { setGroceryLists } from "../../store/state/groceryListSlice";
-import { setToken } from "../../store/state/userSlice";
-import { useCookies } from "react-cookie";
-import { TOKEN_COOKIE } from "../../constants/Cookies";
+// import { setToken } from "../../store/state/userSlice";
+// import { useCookies } from "react-cookie";
+// import { TOKEN_COOKIE } from "../../constants/Cookies";
 import { signIn } from "../../service/UserService";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +18,7 @@ function SignInForm(props: SignInFormProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [, setCookie] = useCookies([TOKEN_COOKIE]);
+    // const [, setCookie] = useCookies([TOKEN_COOKIE]);
 
     const userNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
         setEnteredUsername(event.currentTarget.value);
@@ -31,19 +31,17 @@ function SignInForm(props: SignInFormProps) {
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        signIn(enteredUsername, enteredPassword).then(token => {
-            if(token) {
-                dispatch(setToken(token));
-                getGroceryLists(token).then(lists => {
+        signIn(enteredUsername, enteredPassword).then(() => {
+                // dispatch(setToken(token));
+                getGroceryLists().then(lists => {
                     dispatch(setGroceryLists(lists));
                 });
                 //TODO: figure out http only cookie
-                setCookie(TOKEN_COOKIE, token, {
-                    path: "/",
-                    maxAge: 99999
-                  });
+                // setCookie(TOKEN_COOKIE, token, {
+                //     path: "/",
+                //     maxAge: 99999
+                //   });
                 navigate('/lists');
-            }
         });
 
         setEnteredUsername("");
