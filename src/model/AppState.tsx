@@ -8,7 +8,6 @@ export interface AppState {
 
 export interface GroceryListState {
     groceryLists: GroceryList[];
-    selectedGroceryList: GroceryList;
 };
 
 export interface UserState {

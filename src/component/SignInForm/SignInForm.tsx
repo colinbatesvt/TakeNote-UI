@@ -18,8 +18,6 @@ function SignInForm(props: SignInFormProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const [, setCookie] = useCookies([TOKEN_COOKIE]);
-
     const userNameChanged = (event: React.FormEvent<HTMLInputElement>) => {
         setEnteredUsername(event.currentTarget.value);
     };
@@ -32,15 +30,9 @@ function SignInForm(props: SignInFormProps) {
         event.preventDefault();
 
         signIn(enteredUsername, enteredPassword).then(() => {
-                // dispatch(setToken(token));
                 getGroceryLists().then(lists => {
                     dispatch(setGroceryLists(lists));
                 });
-                //TODO: figure out http only cookie
-                // setCookie(TOKEN_COOKIE, token, {
-                //     path: "/",
-                //     maxAge: 99999
-                //   });
                 navigate('/lists');
         });
 

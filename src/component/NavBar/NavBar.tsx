@@ -3,18 +3,11 @@ import { AppState } from "../../model/AppState";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import './navBar.css'
-import { Button, Nav, NavDropdown } from "react-bootstrap";
-import { TOKEN_COOKIE } from "../../constants/Cookies";
-import { useCookies } from "react-cookie";
+import { Nav, NavDropdown } from "react-bootstrap";
 
 function NavBar() {
     
   const user = useSelector((state: AppState) => state.userState.user);
-  const [,, removeCookie] = useCookies([TOKEN_COOKIE]);
-
-  const signOut = () => {
-    removeCookie(TOKEN_COOKIE);
-  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -33,10 +26,6 @@ function NavBar() {
           <NavDropdown title={user.username} className="d-flex space-right" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/account">
                 My Account
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Button onClick={signOut}>Sign Out</Button>
               </NavDropdown.Item>
             </NavDropdown>
         : <Nav.Link className="d-flex space-right" href="/signIn">Sign In</Nav.Link>
